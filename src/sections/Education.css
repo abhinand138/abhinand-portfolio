@@ -1,0 +1,42 @@
+.education-list {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.education-card {
+    padding: 30px;
+    border-radius: 12px;
+    border-left: 4px solid var(--primary);
+    position: relative;
+    transition: transform 0.3s ease;
+}
+
+.education-card:hover {
+    transform: translateX(10px);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.edu-year {
+    display: inline-block;
+    background: rgba(139, 92, 246, 0.1);
+    color: var(--primary);
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 15px;
+}
+
+.edu-degree {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: var(--text-main);
+}
+
+.edu-school {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+}

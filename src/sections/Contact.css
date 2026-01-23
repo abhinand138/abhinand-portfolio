@@ -1,0 +1,37 @@
+.contact-section {
+    text-align: center;
+    padding: 100px 0;
+}
+
+.contact-container {
+    max-width: 600px;
+}
+
+.contact-subtitle {
+    color: var(--primary);
+    margin-bottom: 20px;
+    font-family: var(--font-mono);
+    font-size: 1rem;
+}
+
+.contact-title {
+    font-size: 3.5rem;
+    margin-bottom: 30px;
+    display: block;
+}
+
+.contact-title::after {
+    display: none;
+}
+
+.contact-text {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    margin-bottom: 50px;
+    line-height: 1.6;
+}
+
+.contact-btn {
+    padding: 18px 30px;
+    font-size: 1.1rem;
+}
