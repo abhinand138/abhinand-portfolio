@@ -8,7 +8,7 @@ const Projects = () => {
             title: "Expense Tracker",
             description: "A website for monitoring daily expenses to hep users track their spending habits effectively.",
             tech: ["HTML", "CSS", "JavaScript"],
-            github: "#",
+            github: "https://github.com/abhinand138/Expense-Tracker",
             live: "#"
         },
         {
@@ -24,6 +24,13 @@ const Projects = () => {
             tech: ["React", "Node.js", "CSS"],
             github: "#",
             live: "#"
+        },
+        {
+            title: "Fat Loss Diet plan System",
+            description: "A Fat Loss Diet Plan System is a project that designs and manages personalized diet plans to help users reduce body fat in a healthy and sustainable way.",
+            tech: ["HTML", "JavaScript", "CSS"],
+            github: "https://github.com/abhinand138/fat-loss-diet-plan",
+            live: ""
         }
     ];
 
