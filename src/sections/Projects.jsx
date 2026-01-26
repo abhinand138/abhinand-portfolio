@@ -15,7 +15,7 @@ const Projects = () => {
             title: "Emotion Detection",
             description: "An AI system capable of detecting human emotions using deep learning techniques.",
             tech: ["Python", "TensorFlow", "Haar Cascade"],
-            github: "#",
+            github: "https://github.com/abhinand138/emotion_detection_system",
             live: "#"
         },
         {
