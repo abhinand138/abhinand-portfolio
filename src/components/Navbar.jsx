@@ -5,26 +5,10 @@ import './Navbar.css';
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
   const [theme, setTheme] = useState(() => {
     return localStorage.getItem('abhinand-portfolio-theme') || 'violet';
   });
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  useEffect(() => {
-    if (theme === 'violet') {
-      document.body.removeAttribute('data-theme');
-    } else {
-      document.body.setAttribute('data-theme', theme);
-    }
-    localStorage.setItem('abhinand-portfolio-theme', theme);
-  }, [theme]);
 
   const navLinks = [
     { name: 'Home', href: '#home' },
@@ -35,6 +19,47 @@ const Navbar = () => {
     { name: 'Certificates', href: '#certificates' },
     { name: 'Contact', href: '#contact' },
   ];
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const sections = navLinks.map(link => document.querySelector(link.href));
+    
+    const observerOptions = {
+      root: null,
+      rootMargin: '-35% 0px -55% 0px', // Trigger when section occupies the upper-middle of viewport
+      threshold: 0
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id);
+        }
+      });
+    }, observerOptions);
+
+    sections.forEach(sec => {
+      if (sec) observer.observe(sec);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (theme === 'violet') {
+      document.body.removeAttribute('data-theme');
+    } else {
+      document.body.setAttribute('data-theme', theme);
+    }
+    localStorage.setItem('abhinand-portfolio-theme', theme);
+  }, [theme]);
 
   const themes = [
     { id: 'violet', color: '#8b5cf6', label: 'Violet Horizon' },
@@ -50,7 +75,11 @@ const Navbar = () => {
 
         <div className="desktop-menu">
           {navLinks.map((link) => (
-            <a key={link.name} href={link.href} className="nav-link">
+            <a 
+              key={link.name} 
+              href={link.href} 
+              className={`nav-link ${activeSection === link.href.substring(1) ? 'active' : ''}`}
+            >
               {link.name}
             </a>
           ))}
@@ -84,6 +113,7 @@ const Navbar = () => {
             <a
               key={link.name}
               href={link.href}
+              className={activeSection === link.href.substring(1) ? 'active' : ''}
               onClick={() => setIsOpen(false)}
             >
               {link.name}

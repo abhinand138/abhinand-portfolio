@@ -7,6 +7,15 @@ const Certificates = () => {
     const [revealed, setRevealed] = useState([false, false, false, false, false, false, false]);
     const cardRefs = useRef([]);
 
+    const handleMouseMove = (e) => {
+        const card = e.currentTarget;
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        card.style.setProperty('--mouse-x', `${x}px`);
+        card.style.setProperty('--mouse-y', `${y}px`);
+    };
+
     useEffect(() => {
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -93,6 +102,7 @@ const Certificates = () => {
                                 data-index={index}
                                 className={`cert-card glass reveal ${isRevealed ? 'active' : ''}`}
                                 onClick={() => setSelectedCert(cert)}
+                                onMouseMove={handleMouseMove}
                             >
                                 <div className="cert-icon">
                                     <FaAward />

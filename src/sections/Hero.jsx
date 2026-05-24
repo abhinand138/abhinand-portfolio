@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { FaFileDownload } from 'react-icons/fa';
+import avatarImg from '../assets/avatar.png';
 import './Hero.css';
 
 const Hero = () => {
@@ -155,24 +156,36 @@ const Hero = () => {
         <section id="home" className="hero-section">
             <canvas ref={canvasRef} className="hero-canvas" />
             <div className="container hero-content">
-                <h2 className="greeting animate-fade-in">Hello, I'm Abhinand</h2>
-                <h1 className="main-heading animate-fade-in delay-100">
-                    Building <span className="text-gradient">Digital Experiences</span>
-                </h1>
-                <h3 className="typing-role animate-fade-in delay-200">
-                    I am a <span className="typed-text">{currentText}</span><span className="typing-cursor">|</span>
-                </h3>
-                <p className="sub-text animate-fade-in delay-200">
-                    A passionate Frontend Developer specializing in building exceptional digital experiences.
-                    Currently focused on creating accessible, human-centered products.
-                </p>
+                <div className="hero-text-block">
+                    <div className="status-badge animate-fade-in">
+                        <span className="status-dot"></span>
+                        <span className="status-text-label">Open to opportunities</span>
+                    </div>
+                    <h2 className="greeting animate-fade-in">Hello, I'm Abhinand</h2>
+                    <h1 className="main-heading animate-fade-in delay-100">
+                        Building <span className="text-gradient">Digital Experiences</span>
+                    </h1>
+                    <h3 className="typing-role animate-fade-in delay-200">
+                        I am a <span className="typed-text">{currentText}</span><span className="typing-cursor">|</span>
+                    </h3>
+                    <p className="sub-text animate-fade-in delay-200">
+                        A passionate Frontend Developer specializing in building exceptional digital experiences.
+                        Currently focused on creating accessible, human-centered products.
+                    </p>
 
-                <div className="cta-group animate-fade-in delay-300">
-                    <a href="#projects" className="btn btn-primary">Check out my work</a>
-                    <a href="#contact" className="btn btn-outline">Contact Me</a>
-                    <a href="/resume.pdf" download="Abhinand_Resume.pdf" className="btn btn-outline" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                        Resume <FaFileDownload />
-                    </a>
+                    <div className="cta-group animate-fade-in delay-300">
+                        <a href="#projects" className="btn btn-primary">Check out my work</a>
+                        <a href="#contact" className="btn btn-outline">Contact Me</a>
+                        <a href="/resume.pdf" download="Abhinand_Resume.pdf" className="btn btn-outline" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            Resume <FaFileDownload />
+                        </a>
+                    </div>
+                </div>
+
+                <div className="hero-avatar-block animate-fade-in delay-200">
+                    <div className="avatar-glowing-wrapper">
+                        <img src={avatarImg} alt="Abhinand Profile" className="hero-avatar" />
+                    </div>
                 </div>
             </div>
 

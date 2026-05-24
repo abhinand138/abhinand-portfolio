@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { FaPaperPlane, FaCheckCircle, FaEnvelope } from 'react-icons/fa';
+import emailjs from '@emailjs/browser';
 import './Contact.css';
 
 const Contact = () => {
@@ -32,10 +33,45 @@ const Contact = () => {
 
         setStatus({ submitting: true, success: false, error: null });
 
-        setTimeout(() => {
+        // Retrieve credentials from environment variables
+        const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+        const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+        const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+        // Fallback for local testing or when credentials aren't supplied yet
+        if (!serviceId || !templateId || !publicKey || serviceId.includes('your_')) {
+            console.warn("EmailJS credentials are not configured yet in the .env file. Simulating successful form submission...");
+            setTimeout(() => {
+                setStatus({ submitting: false, success: true, error: null });
+                setFormData({ name: '', email: '', subject: '', message: '' });
+            }, 1200);
+            return;
+        }
+
+        // Send email using EmailJS
+        emailjs.send(
+            serviceId,
+            templateId,
+            {
+                from_name: formData.name,
+                reply_to: formData.email,
+                subject: formData.subject || `Portfolio Message from ${formData.name}`,
+                message: formData.message
+            },
+            publicKey
+        )
+        .then(() => {
             setStatus({ submitting: false, success: true, error: null });
             setFormData({ name: '', email: '', subject: '', message: '' });
-        }, 1500);
+        })
+        .catch((error) => {
+            console.error('EmailJS Error:', error);
+            setStatus({ 
+                submitting: false, 
+                success: false, 
+                error: error?.text || 'Failed to send message. Please try again or use the Direct Email option.' 
+            });
+        });
     };
 
     return (

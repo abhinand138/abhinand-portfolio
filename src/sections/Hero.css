@@ -9,9 +9,119 @@
 }
 
 .hero-content {
-    max-width: 800px;
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 60px;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
     position: relative;
     z-index: 10;
+}
+
+.hero-text-block {
+    display: flex;
+    flex-direction: column;
+}
+
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(16, 185, 129, 0.05);
+    border: 1px solid rgba(16, 185, 129, 0.15);
+    padding: 6px 14px;
+    border-radius: 30px;
+    margin-bottom: 20px;
+    width: fit-content;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #10b981;
+    border-radius: 50%;
+    position: relative;
+    box-shadow: 0 0 10px #10b981;
+}
+
+/* Breathing/pulse effect for the green dot */
+.status-dot::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 8px;
+    height: 8px;
+    background-color: #10b981;
+    border-radius: 50%;
+    animation: status-pulse 2s infinite ease-in-out;
+}
+
+@keyframes status-pulse {
+    0% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.8;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(3.2);
+        opacity: 0;
+    }
+}
+
+.status-text-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #34d399;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.hero-avatar-block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.avatar-glowing-wrapper {
+    position: relative;
+    width: 320px;
+    height: 320px;
+    border-radius: 50%;
+    padding: 6px;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    box-shadow: 0 0 35px rgba(var(--primary-rgb), 0.3), 0 0 60px rgba(var(--accent-rgb), 0.2);
+    animation: float-avatar 6s ease-in-out infinite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-avatar {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 6px solid var(--bg-color);
+    background-color: var(--bg-secondary);
+}
+
+/* Floating animation for avatar */
+@keyframes float-avatar {
+    0% {
+        transform: translateY(0px) rotate(0deg);
+        box-shadow: 0 0 35px rgba(var(--primary-rgb), 0.3), 0 0 60px rgba(var(--accent-rgb), 0.2);
+    }
+    50% {
+        transform: translateY(-15px) rotate(1deg);
+        box-shadow: 0 0 50px rgba(var(--primary-rgb), 0.45), 0 0 80px rgba(var(--accent-rgb), 0.35);
+    }
+    100% {
+        transform: translateY(0px) rotate(0deg);
+        box-shadow: 0 0 35px rgba(var(--primary-rgb), 0.3), 0 0 60px rgba(var(--accent-rgb), 0.2);
+    }
 }
 
 .greeting {
@@ -152,6 +262,35 @@
     }
 }
 
+@media (max-width: 992px) {
+    .hero-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 40px;
+    }
+
+    .hero-text-block {
+        order: 2;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .hero-avatar-block {
+        order: 1;
+        margin-top: 20px;
+    }
+
+    .avatar-glowing-wrapper {
+        width: 250px;
+        height: 250px;
+    }
+
+    .cta-group {
+        justify-content: center;
+    }
+}
+
 @media (max-width: 768px) {
     .main-heading {
         font-size: 3rem;
@@ -160,5 +299,10 @@
     .typing-role {
         font-size: 1.4rem;
         margin-bottom: 20px;
+    }
+
+    .avatar-glowing-wrapper {
+        width: 200px;
+        height: 200px;
     }
 }

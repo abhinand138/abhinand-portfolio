@@ -6,6 +6,15 @@ const CGPA = () => {
     const [revealed, setRevealed] = useState([false, false]);
     const cardRefs = useRef([]);
 
+    const handleMouseMove = (e) => {
+        const card = e.currentTarget;
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        card.style.setProperty('--mouse-x', `${x}px`);
+        card.style.setProperty('--mouse-y', `${y}px`);
+    };
+
     useEffect(() => {
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -68,6 +77,7 @@ const CGPA = () => {
                                 ref={el => cardRefs.current[index] = el}
                                 data-index={index}
                                 className={`cgpa-card glass reveal ${isRevealed ? 'active' : ''}`}
+                                onMouseMove={handleMouseMove}
                             >
                                 <div className="cgpa-header">
                                     <h3 className="inst-name">{grade.institution}</h3>

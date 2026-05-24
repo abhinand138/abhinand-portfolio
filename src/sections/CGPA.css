@@ -48,17 +48,52 @@
     bottom: 0;
     border-radius: 20px;
     padding: 1.5px;
-    background: linear-gradient(135deg, transparent, transparent);
+    background: radial-gradient(
+        250px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+        var(--primary) 0%,
+        var(--accent) 50%,
+        transparent 100%
+    );
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
-    transition: background 0.4s ease;
+    transition: opacity 0.4s ease;
     pointer-events: none;
     z-index: 2;
+    opacity: 0;
 }
 
 .cgpa-card:hover::before {
-    background: linear-gradient(135deg, var(--primary), var(--accent));
+    opacity: 0.8;
+}
+
+.cgpa-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(
+        350px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+        rgba(var(--primary-rgb), 0.08),
+        transparent 80%
+    );
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.cgpa-card:hover::after {
+    opacity: 1;
+}
+
+.cgpa-header,
+.cgpa-gauge-container,
+.cgpa-details {
+    position: relative;
+    z-index: 5;
 }
 
 .cgpa-card:hover {

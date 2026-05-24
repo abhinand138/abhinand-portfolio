@@ -1,11 +1,21 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { FaGithub, FaExternalLinkAlt, FaCode } from 'react-icons/fa';
+import { FaGithub, FaExternalLinkAlt, FaCode, FaTimes } from 'react-icons/fa';
 import './Projects.css';
 
 const Projects = () => {
     const [filter, setFilter] = useState('all');
+    const [selectedProject, setSelectedProject] = useState(null);
     const [revealed, setRevealed] = useState([false, false, false, false]);
     const cardRefs = useRef([]);
+
+    const handleMouseMove = (e) => {
+        const card = e.currentTarget;
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        card.style.setProperty('--mouse-x', `${x}px`);
+        card.style.setProperty('--mouse-y', `${y}px`);
+    };
 
     useEffect(() => {
         const observer = new IntersectionObserver((entries) => {
@@ -36,7 +46,9 @@ const Projects = () => {
             tech: ["HTML", "CSS", "JavaScript"],
             github: "https://github.com/abhinand138/Expense-Tracker",
             live: "#",
-            category: "web"
+            category: "web",
+            features: ["Dynamic expense log listings", "Persistent localStorage database saving", "Interactive category distribution tracker"],
+            challenges: "Maintaining reliable key-value local state synchronization across rapid form updates without losing user input history."
         },
         {
             title: "Emotion Detection",
@@ -44,7 +56,9 @@ const Projects = () => {
             tech: ["Python", "TensorFlow", "Haar Cascade"],
             github: "https://github.com/abhinand138/emotion_detection_system",
             live: "#",
-            category: "ai"
+            category: "ai",
+            features: ["Real-time video frame face classification", "Deep learning CNN architecture integration", "Robust frontal face bounds scaling via Haar Cascades"],
+            challenges: "Optimizing batch frame conversion pipelines in live openCV streams to eliminate video feedback latency."
         },
         {
             title: "Portfolio Website",
@@ -52,7 +66,9 @@ const Projects = () => {
             tech: ["React", "CSS", "Vite"],
             github: "https://github.com/abhinand138/abhinand-portfolio",
             live: "#",
-            category: "web"
+            category: "web",
+            features: ["Dynamic glassmorphic card displays", "Buttery smooth Vercel-style cursor follow border tracking", "Dynamic multi-theme CSS accent swap toggles", "Native scroll highlighting intersection observer"],
+            challenges: "Designing reactive hover properties that update at 60fps on cursor displacement without triggering constant virtual DOM component re-renders."
         },
         {
             title: "Fat Loss Diet plan System",
@@ -60,7 +76,9 @@ const Projects = () => {
             tech: ["HTML", "JavaScript", "CSS"],
             github: "https://github.com/abhinand138/fat-loss-diet-plan",
             live: "#",
-            category: "web"
+            category: "web",
+            features: ["Automated target daily calorie calculator", "Dynamic macro-nutrient division split profiles", "Curated ingredient logs based on body statistics"],
+            challenges: "Designing fail-proof validation thresholds across diverse body metric metrics to maintain medically sound calorie deficit calculations."
         },
         {
             title: "NextGen Hospital Management System",
@@ -68,7 +86,9 @@ const Projects = () => {
             tech: ["Python Django", "MySQL", "React"],
             github: "https://github.com/abhinand138/Hospital_project",
             live: "https://hospital-project-slpp.onrender.com",
-            category: "web"
+            category: "web",
+            features: ["Strict Doctor and patient login credential authorization", "Electronic health record and appointment booking scheduling logs", "Dynamic role routing panels", "Active Django ORM database triggers"],
+            challenges: "Handling concurrent appointment slots overlap logic and implementing database locks to prevent multi-booking database collisions."
         }
     ];
 
@@ -112,31 +132,110 @@ const Projects = () => {
                                 ref={el => cardRefs.current[index] = el}
                                 data-index={index}
                                 className={`project-card glass reveal ${isRevealed ? 'active' : ''}`}
+                                onMouseMove={handleMouseMove}
+                                onClick={() => setSelectedProject(project)}
+                                style={{ cursor: 'pointer' }}
                             >
                                 <div className="project-card-glow"></div>
                                 <div className="project-content">
-                                    <div className="project-header">
-                                        <div className="project-folder">
-                                            <FaCode />
+                                    <div>
+                                        <div className="project-header">
+                                            <div className="project-folder">
+                                                <FaCode />
+                                            </div>
+                                            <div className="project-links">
+                                                <a href={project.github} target="_blank" rel="noopener noreferrer" title="View Source" onClick={(e) => e.stopPropagation()}><FaGithub /></a>
+                                                {project.live !== "#" && (
+                                                    <a href={project.live} target="_blank" rel="noopener noreferrer" title="Live Preview" onClick={(e) => e.stopPropagation()}><FaExternalLinkAlt /></a>
+                                                )}
+                                            </div>
                                         </div>
-                                        <div className="project-links">
-                                            <a href={project.github} target="_blank" rel="noopener noreferrer" title="View Source"><FaGithub /></a>
-                                            {project.live !== "#" && (
-                                                <a href={project.live} target="_blank" rel="noopener noreferrer" title="Live Preview"><FaExternalLinkAlt /></a>
-                                            )}
+                                        <h3 className="project-title">{project.title}</h3>
+                                        <p className="project-desc">{project.description}</p>
+                                    </div>
+                                    <div>
+                                        <ul className="project-tech">
+                                            {project.tech.map((t, i) => <li key={i}>{t}</li>)}
+                                        </ul>
+                                        <div className="project-card-footer" style={{ marginTop: '20px', paddingTop: '15px', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
+                                            <span className="project-details-btn-text">View Architecture & Features ▹</span>
                                         </div>
                                     </div>
-                                    <h3 className="project-title">{project.title}</h3>
-                                    <p className="project-desc">{project.description}</p>
-                                    <ul className="project-tech">
-                                        {project.tech.map((t, i) => <li key={i}>{t}</li>)}
-                                    </ul>
                                 </div>
                             </div>
                         );
                     })}
                 </div>
             </div>
+
+            {/* Custom Project Details Modal Overlay */}
+            {selectedProject && (
+                <div className="project-modal-overlay" onClick={() => setSelectedProject(null)}>
+                    <div className="project-modal-content glass animate-scale-up" onClick={(e) => e.stopPropagation()}>
+                        <button className="project-modal-close" onClick={() => setSelectedProject(null)}>
+                            <FaTimes />
+                        </button>
+                        <div className="project-modal-body">
+                            <div className="project-modal-icon">
+                                <FaCode />
+                            </div>
+                            <h3 className="project-modal-title">{selectedProject.title}</h3>
+                            <span className="project-modal-category-badge">
+                                {selectedProject.category === 'web' ? 'Web Application' : 'AI & Deep Learning'}
+                            </span>
+                            
+                            <p className="project-modal-desc">{selectedProject.description}</p>
+                            
+                            <div className="project-modal-section">
+                                <h4>Key Technical Features</h4>
+                                <ul className="modal-list">
+                                    {selectedProject.features.map((feat, idx) => (
+                                        <li key={idx}>▹ {feat}</li>
+                                    ))}
+                                </ul>
+                            </div>
+                            
+                            <div className="project-modal-section">
+                                <h4>Engineering Challenges Solved</h4>
+                                <p className="modal-section-text">{selectedProject.challenges}</p>
+                            </div>
+
+                            <div className="project-modal-section">
+                                <h4>Applied Tech Stack</h4>
+                                <ul className="project-tech" style={{ justifyContent: 'center', marginTop: '10px' }}>
+                                    {selectedProject.tech.map((t, idx) => <li key={idx}>{t}</li>)}
+                                </ul>
+                            </div>
+
+                            <div className="project-modal-actions">
+                                <a
+                                    href={selectedProject.github}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="btn btn-primary"
+                                    style={{ display: 'flex', alignItems: 'center', gap: '8px', justifyContent: 'center' }}
+                                >
+                                    View Source Code <FaGithub />
+                                </a>
+                                {selectedProject.live !== "#" && (
+                                    <a
+                                        href={selectedProject.live}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="btn btn-outline"
+                                        style={{ display: 'flex', alignItems: 'center', gap: '8px', justifyContent: 'center' }}
+                                    >
+                                        Live Preview <FaExternalLinkAlt />
+                                    </a>
+                                )}
+                                <button className="btn btn-outline" onClick={() => setSelectedProject(null)}>
+                                    Close Details
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
         </section>
     );
 };
