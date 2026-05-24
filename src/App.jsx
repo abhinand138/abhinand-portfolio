@@ -7,6 +7,7 @@ import About from './sections/About';
 import Projects from './sections/Projects';
 import Contact from './sections/Contact';
 import Education from './sections/Education';
+import CGPA from './sections/CGPA';
 import Certificates from './sections/Certificates';
 import CV from './sections/CV';
 
@@ -32,6 +33,7 @@ function App() {
       <Hero />
       <About />
       <Education />
+      <CGPA />
       <Projects />
       <Certificates />
       <CV />

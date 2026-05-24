@@ -1,42 +1,259 @@
+.timeline-container {
+    position: relative;
+    max-width: 800px;
+    margin: 40px auto 0 auto;
+    padding-left: 30px;
+}
+
+.timeline-line {
+    position: absolute;
+    left: 0;
+    top: 5px;
+    bottom: 5px;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--primary), var(--accent));
+    box-shadow: 0 0 10px rgba(139, 92, 246, 0.3);
+}
+
 .education-list {
     display: flex;
     flex-direction: column;
-    gap: 30px;
-    max-width: 800px;
-    margin: 0 auto;
+    gap: 40px;
+}
+
+.education-item {
+    position: relative;
+}
+
+.timeline-node {
+    position: absolute;
+    left: -36px;
+    top: 30px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--bg-color);
+    border: 3px solid var(--primary);
+    box-shadow: 0 0 8px var(--primary);
+    z-index: 5;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .education-card {
     padding: 30px;
-    border-radius: 12px;
-    border-left: 4px solid var(--primary);
+    border-radius: 16px;
     position: relative;
-    transition: transform 0.3s ease;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    cursor: pointer;
 }
 
-.education-card:hover {
-    transform: translateX(10px);
+.education-item:hover .timeline-node {
+    background: var(--accent);
+    border-color: var(--accent);
+    box-shadow: 0 0 15px var(--accent);
+    transform: scale(1.3);
+}
+
+.education-item:hover .education-card {
+    transform: translateX(12px);
     background: rgba(255, 255, 255, 0.05);
+    border-color: var(--primary);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Monogram Badge Styles */
+.card-header-main {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.monogram-badge {
+    min-width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    background: rgba(var(--primary-rgb), 0.08);
+    border: 1px solid rgba(var(--primary-rgb), 0.15);
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.15rem;
+    box-shadow: 0 0 10px rgba(var(--primary-rgb), 0.1);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.education-item:hover .monogram-badge {
+    transform: rotate(360deg);
+    color: var(--accent);
+    background: rgba(var(--accent-rgb), 0.12);
+    border-color: rgba(var(--accent-rgb), 0.25);
+    box-shadow: 0 0 15px rgba(var(--accent-rgb), 0.2);
+}
+
+.card-titles {
+    flex: 1;
 }
 
 .edu-year {
     display: inline-block;
     background: rgba(139, 92, 246, 0.1);
     color: var(--primary);
-    padding: 5px 12px;
+    padding: 5px 14px;
     border-radius: 20px;
-    font-size: 0.9rem;
-    font-weight: 500;
-    margin-bottom: 15px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+    border: 1px solid rgba(139, 92, 246, 0.15);
+    transition: all 0.3s ease;
+}
+
+.education-item:hover .edu-year {
+    background: rgba(var(--accent-rgb), 0.15);
+    color: var(--accent);
+    border-color: rgba(var(--accent-rgb), 0.2);
 }
 
 .edu-degree {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
+    font-size: 1.45rem;
+    margin-bottom: 8px;
     color: var(--text-main);
+    font-weight: 600;
+    line-height: 1.3;
 }
 
 .edu-school {
-    font-size: 1.1rem;
+    font-size: 1rem;
     color: var(--text-secondary);
+}
+
+/* Expansion Trigger */
+.expansion-trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 15px;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.education-card:hover .expansion-trigger {
+    color: var(--primary);
+    border-color: rgba(var(--primary-rgb), 0.2);
+}
+
+.trigger-text {
+    display: flex;
+    align-items: center;
+}
+
+.trigger-icon {
+    display: flex;
+    align-items: center;
+    transition: transform 0.3s ease;
+}
+
+.trigger-icon.rotated {
+    transform: rotate(180deg);
+    color: var(--accent);
+}
+
+/* Expansion Drawer */
+.expansion-drawer {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+                opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+                margin-top 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.expansion-drawer.open {
+    max-height: 350px;
+    opacity: 1;
+    margin-top: 20px;
+}
+
+.expansion-content {
+    background: rgba(255, 255, 255, 0.015);
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    padding: 20px;
+    border-radius: 12px;
+}
+
+.accomplishments-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.accomplishments-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.accomplishment-item {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    text-align: left;
+    cursor: text;
+}
+
+.accomplishment-item .bullet {
+    color: var(--primary);
+    font-weight: 700;
+    font-size: 1rem;
+    line-height: 1.4;
+}
+
+.accomplishment-item p {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+    .timeline-container {
+        padding-left: 20px;
+    }
+    
+    .timeline-node {
+        left: -26px;
+        width: 12px;
+        height: 12px;
+    }
+    
+    .monogram-badge {
+        min-width: 44px;
+        height: 44px;
+        font-size: 1rem;
+    }
+    
+    .edu-degree {
+        font-size: 1.2rem;
+    }
+    
+    .edu-school {
+        font-size: 0.95rem;
+    }
+    
+    .card-header-main {
+        gap: 12px;
+    }
 }

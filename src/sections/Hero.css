@@ -114,8 +114,51 @@
     }
 }
 
+.hero-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.typing-role {
+    font-size: 1.8rem;
+    font-weight: 500;
+    margin-bottom: 25px;
+    color: var(--text-main);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-heading);
+}
+
+.typed-text {
+    color: var(--accent);
+    font-weight: 600;
+}
+
+.typing-cursor {
+    color: var(--primary);
+    font-weight: 400;
+    animation: blink 0.8s infinite;
+}
+
+@keyframes blink {
+    50% {
+        opacity: 0;
+    }
+}
+
 @media (max-width: 768px) {
     .main-heading {
         font-size: 3rem;
+    }
+    
+    .typing-role {
+        font-size: 1.4rem;
+        margin-bottom: 20px;
     }
 }

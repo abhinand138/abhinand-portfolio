@@ -1,0 +1,205 @@
+.cgpa-section {
+    background-color: var(--bg-color);
+    padding: 100px 0;
+}
+
+.cgpa-subtitle {
+    color: var(--primary);
+    font-size: 1rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+.cgpa-section .section-title {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.cgpa-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 35px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.cgpa-card {
+    border-radius: 20px;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.015);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.cgpa-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 20px;
+    padding: 1.5px;
+    background: linear-gradient(135deg, transparent, transparent);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    transition: background 0.4s ease;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.cgpa-card:hover::before {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+}
+
+.cgpa-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.cgpa-header {
+    text-align: center;
+    margin-bottom: 30px;
+    width: 100%;
+}
+
+.inst-name {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 8px;
+    line-height: 1.4;
+}
+
+.prog-name {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+/* CGPA SVG Gauge */
+.cgpa-gauge-container {
+    position: relative;
+    width: 160px;
+    height: 160px;
+    margin-bottom: 35px;
+}
+
+.cgpa-gauge {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+}
+
+.gauge-bg {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.04);
+    stroke-width: 7;
+}
+
+.gauge-fill {
+    fill: none;
+    stroke-width: 7;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+    filter: drop-shadow(0 0 5px currentColor);
+}
+
+.gauge-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.gauge-score {
+    font-family: var(--font-heading);
+    font-size: 2.3rem;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1;
+}
+
+.gauge-label {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    margin-top: 4px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Details Section */
+.cgpa-details {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 25px;
+}
+
+.detail-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+}
+
+.detail-label {
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.detail-value {
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.detail-value.text-gradient {
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 1.05rem;
+}
+
+.highlight-badge {
+    border: 1px solid;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    background: rgba(255, 255, 255, 0.01);
+}
+
+.status-text {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+}
+
+@media (max-width: 768px) {
+    .cgpa-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .cgpa-card {
+        padding: 30px 20px;
+    }
+}
