@@ -89,6 +89,16 @@ const Projects = () => {
             category: "web",
             features: ["Strict Doctor and patient login credential authorization", "Electronic health record and appointment booking scheduling logs", "Dynamic role routing panels", "Active Django ORM database triggers"],
             challenges: "Handling concurrent appointment slots overlap logic and implementing database locks to prevent multi-booking database collisions."
+        },
+        {
+            title: "Mailsuite Pro - Email Tracking & Analytics System",
+            description: "Mailsuite Pro is a modern, full-stack Email Tracking System similar to Mailsuite (formerly Mailtrack). It enables users to send emails with tracking features, log recipients' open events and link clicks in real-time, and view comprehensive, real-time metrics and historical logs through a beautiful dark-mode glassmorphism dashboard.",
+            tech: ["Node.js,Express.js,Web Sockets,Cheerio,NodeMailer", "SQLite with Prisma ORM", "React/Tailwind CSS"],
+            github: "https://github.com/abhinand138/EmailTrackingSystem",
+            live: "",
+            category: "web",
+            features: ["Allows users to input, test, and save their own SMTP credentials (like Gmail App Passwords, Mailgun, or Resend) for real delivery.", "Features custom SVG tracking charts (showing opens over the last 7 days), open rate %, click-through rate %, total count statistics, and detailed search/filter histories."],
+            challenges: "Automatically falls back to Nodemailer's Ethereal.email sandbox if no custom SMTP credentials are set. A preview URL is displayed so users can view the mail, click its links, and test tracking in a simulated client!"
         }
     ];
 
@@ -183,9 +193,9 @@ const Projects = () => {
                             <span className="project-modal-category-badge">
                                 {selectedProject.category === 'web' ? 'Web Application' : 'AI & Deep Learning'}
                             </span>
-                            
+
                             <p className="project-modal-desc">{selectedProject.description}</p>
-                            
+
                             <div className="project-modal-section">
                                 <h4>Key Technical Features</h4>
                                 <ul className="modal-list">
@@ -194,7 +204,7 @@ const Projects = () => {
                                     ))}
                                 </ul>
                             </div>
-                            
+
                             <div className="project-modal-section">
                                 <h4>Engineering Challenges Solved</h4>
                                 <p className="modal-section-text">{selectedProject.challenges}</p>
