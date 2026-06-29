@@ -5,7 +5,7 @@ import './Projects.css';
 const Projects = () => {
     const [filter, setFilter] = useState('all');
     const [selectedProject, setSelectedProject] = useState(null);
-    const [revealed, setRevealed] = useState([false, false, false, false]);
+    const [revealed, setRevealed] = useState([false, false, false, false, false, false, false, false, false, false]);
     const cardRefs = useRef([]);
 
     const handleMouseMove = (e) => {
@@ -99,155 +99,167 @@ const Projects = () => {
             category: "web",
             features: ["Allows users to input, test, and save their own SMTP credentials (like Gmail App Passwords, Mailgun, or Resend) for real delivery.", "Features custom SVG tracking charts (showing opens over the last 7 days), open rate %, click-through rate %, total count statistics, and detailed search/filter histories."],
             challenges: "Automatically falls back to Nodemailer's Ethereal.email sandbox if no custom SMTP credentials are set. A preview URL is displayed so users can view the mail, click its links, and test tracking in a simulated client!"
+        },
+        {
+            title: "Smart Restaurant ERP ",
+            description: `Restaurant ERP System is a full-stack web application developed to automate and manage restaurant operations efficiently. The system provides role-based access for Admin, Manager, and Cashier users, enabling them to manage tables, menu items, customer orders, billing, and analytics through a centralized dashboard,
+
+The application is built using React.js and Tailwind CSS for the frontend, Spring Boot for the backend REST APIs, and PostgreSQL as the database. It includes features such as CRUD operations, order management with menu integration, automated bill generation, PDF invoice downloads, revenue tracking, and real-time dashboard statistics.`,
+            tech: ["React.js", "Tailwind CSS", "Java Spring Boot", "PostgreSQL", "JWT Authentication", "Axios", "jspdf"],
+            github: "https://github.com/abhinand138/restaurant-erp-system",
+            live: "",
+            category: "ERP",
+            features: ["It includes features such as CRUD operations, order management with menu integration, automated bill generation, PDF invoice downloads, revenue tracking, and real-time dashboard statistics."],
+            challenges: "During the development of the Restaurant ERP System, several challenges were encountered. Implementing role-based access control for Admin, Manager, and Cashier users required careful planning to ensure each user had appropriate permissions. Integrating the React frontend with the Spring Boot backend through REST APIs and handling CORS issues was another challenge."
         }
     ];
 
-    const filteredProjects = filter === 'all'
-        ? projects
-        : projects.filter(p => p.category === filter);
+const filteredProjects = filter === 'all'
+    ? projects
+    : projects.filter(p => p.category === filter || (filter === 'web' && p.category === 'ERP'));
 
-    return (
-        <section id="projects" className="section projects-section">
-            <div className="container">
-                <p className="projects-subtitle reveal">Browse My Recent Creations</p>
-                <h2 className="section-title reveal">Some Things I've Built</h2>
+return (
+    <section id="projects" className="section projects-section">
+        <div className="container">
+            <p className="projects-subtitle reveal">Browse My Recent Creations</p>
+            <h2 className="section-title reveal">Some Things I've Built</h2>
 
-                <div className="filter-tabs reveal">
-                    <button
-                        className={`filter-tab ${filter === 'all' ? 'active' : ''}`}
-                        onClick={() => setFilter('all')}
-                    >
-                        All Projects
-                    </button>
-                    <button
-                        className={`filter-tab ${filter === 'web' ? 'active' : ''}`}
-                        onClick={() => setFilter('web')}
-                    >
-                        Web Applications
-                    </button>
-                    <button
-                        className={`filter-tab ${filter === 'ai' ? 'active' : ''}`}
-                        onClick={() => setFilter('ai')}
-                    >
-                        AI & Deep Learning
-                    </button>
-                </div>
+            <div className="filter-tabs reveal">
+                <button
+                    className={`filter-tab ${filter === 'all' ? 'active' : ''}`}
+                    onClick={() => setFilter('all')}
+                >
+                    All Projects
+                </button>
+                <button
+                    className={`filter-tab ${filter === 'web' ? 'active' : ''}`}
+                    onClick={() => setFilter('web')}
+                >
+                    Web Applications
+                </button>
+                <button
+                    className={`filter-tab ${filter === 'ai' ? 'active' : ''}`}
+                    onClick={() => setFilter('ai')}
+                >
+                    AI & Deep Learning
+                </button>
+            </div>
 
-                <div className="projects-grid">
-                    {filteredProjects.map((project, index) => {
-                        const isRevealed = revealed[index];
-                        return (
-                            <div
-                                key={index}
-                                ref={el => cardRefs.current[index] = el}
-                                data-index={index}
-                                className={`project-card glass reveal ${isRevealed ? 'active' : ''}`}
-                                onMouseMove={handleMouseMove}
-                                onClick={() => setSelectedProject(project)}
-                                style={{ cursor: 'pointer' }}
-                            >
-                                <div className="project-card-glow"></div>
-                                <div className="project-content">
-                                    <div>
-                                        <div className="project-header">
-                                            <div className="project-folder">
-                                                <FaCode />
-                                            </div>
-                                            <div className="project-links">
-                                                <a href={project.github} target="_blank" rel="noopener noreferrer" title="View Source" onClick={(e) => e.stopPropagation()}><FaGithub /></a>
-                                                {project.live !== "#" && (
-                                                    <a href={project.live} target="_blank" rel="noopener noreferrer" title="Live Preview" onClick={(e) => e.stopPropagation()}><FaExternalLinkAlt /></a>
-                                                )}
-                                            </div>
+            <div className="projects-grid">
+                {filteredProjects.map((project, index) => {
+                    const isRevealed = revealed[index];
+                    return (
+                        <div
+                            key={index}
+                            ref={el => cardRefs.current[index] = el}
+                            data-index={index}
+                            className={`project-card glass reveal ${isRevealed ? 'active' : ''}`}
+                            onMouseMove={handleMouseMove}
+                            onClick={() => setSelectedProject(project)}
+                            style={{ cursor: 'pointer' }}
+                        >
+                            <div className="project-card-glow"></div>
+                            <div className="project-content">
+                                <div>
+                                    <div className="project-header">
+                                        <div className="project-folder">
+                                            <FaCode />
                                         </div>
-                                        <h3 className="project-title">{project.title}</h3>
-                                        <p className="project-desc">{project.description}</p>
+                                        <div className="project-links">
+                                            <a href={project.github} target="_blank" rel="noopener noreferrer" title="View Source" onClick={(e) => e.stopPropagation()}><FaGithub /></a>
+                                            {project.live !== "#" && (
+                                                <a href={project.live} target="_blank" rel="noopener noreferrer" title="Live Preview" onClick={(e) => e.stopPropagation()}><FaExternalLinkAlt /></a>
+                                            )}
+                                        </div>
                                     </div>
-                                    <div>
-                                        <ul className="project-tech">
-                                            {project.tech.map((t, i) => <li key={i}>{t}</li>)}
-                                        </ul>
-                                        <div className="project-card-footer" style={{ marginTop: '20px', paddingTop: '15px', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
-                                            <span className="project-details-btn-text">View Architecture & Features ▹</span>
-                                        </div>
+                                    <h3 className="project-title">{project.title}</h3>
+                                    <p className="project-desc">{project.description}</p>
+                                </div>
+                                <div>
+                                    <ul className="project-tech">
+                                        {project.tech.map((t, i) => <li key={i}>{t}</li>)}
+                                    </ul>
+                                    <div className="project-card-footer" style={{ marginTop: '20px', paddingTop: '15px', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
+                                        <span className="project-details-btn-text">View Architecture & Features ▹</span>
                                     </div>
                                 </div>
                             </div>
-                        );
-                    })}
-                </div>
+                        </div>
+                    );
+                })}
             </div>
+        </div>
 
-            {/* Custom Project Details Modal Overlay */}
-            {selectedProject && (
-                <div className="project-modal-overlay" onClick={() => setSelectedProject(null)}>
-                    <div className="project-modal-content glass animate-scale-up" onClick={(e) => e.stopPropagation()}>
-                        <button className="project-modal-close" onClick={() => setSelectedProject(null)}>
-                            <FaTimes />
-                        </button>
-                        <div className="project-modal-body">
-                            <div className="project-modal-icon">
-                                <FaCode />
-                            </div>
-                            <h3 className="project-modal-title">{selectedProject.title}</h3>
-                            <span className="project-modal-category-badge">
-                                {selectedProject.category === 'web' ? 'Web Application' : 'AI & Deep Learning'}
-                            </span>
+        {/* Custom Project Details Modal Overlay */}
+        {selectedProject && (
+            <div className="project-modal-overlay" onClick={() => setSelectedProject(null)}>
+                <div className="project-modal-content glass animate-scale-up" onClick={(e) => e.stopPropagation()}>
+                    <button className="project-modal-close" onClick={() => setSelectedProject(null)}>
+                        <FaTimes />
+                    </button>
+                    <div className="project-modal-body">
+                        <div className="project-modal-icon">
+                            <FaCode />
+                        </div>
+                        <h3 className="project-modal-title">{selectedProject.title}</h3>
+                        <span className="project-modal-category-badge">
+                            {selectedProject.category === 'web' || selectedProject.category === 'ERP' ? 'Web Application' : 'AI & Deep Learning'}
+                        </span>
 
-                            <p className="project-modal-desc">{selectedProject.description}</p>
+                        <p className="project-modal-desc">{selectedProject.description}</p>
 
-                            <div className="project-modal-section">
-                                <h4>Key Technical Features</h4>
-                                <ul className="modal-list">
-                                    {selectedProject.features.map((feat, idx) => (
-                                        <li key={idx}>▹ {feat}</li>
-                                    ))}
-                                </ul>
-                            </div>
+                        <div className="project-modal-section">
+                            <h4>Key Technical Features</h4>
+                            <ul className="modal-list">
+                                {selectedProject.features.map((feat, idx) => (
+                                    <li key={idx}>▹ {feat}</li>
+                                ))}
+                            </ul>
+                        </div>
 
-                            <div className="project-modal-section">
-                                <h4>Engineering Challenges Solved</h4>
-                                <p className="modal-section-text">{selectedProject.challenges}</p>
-                            </div>
+                        <div className="project-modal-section">
+                            <h4>Engineering Challenges Solved</h4>
+                            <p className="modal-section-text">{selectedProject.challenges}</p>
+                        </div>
 
-                            <div className="project-modal-section">
-                                <h4>Applied Tech Stack</h4>
-                                <ul className="project-tech" style={{ justifyContent: 'center', marginTop: '10px' }}>
-                                    {selectedProject.tech.map((t, idx) => <li key={idx}>{t}</li>)}
-                                </ul>
-                            </div>
+                        <div className="project-modal-section">
+                            <h4>Applied Tech Stack</h4>
+                            <ul className="project-tech" style={{ justifyContent: 'center', marginTop: '10px' }}>
+                                {selectedProject.tech.map((t, idx) => <li key={idx}>{t}</li>)}
+                            </ul>
+                        </div>
 
-                            <div className="project-modal-actions">
+                        <div className="project-modal-actions">
+                            <a
+                                href={selectedProject.github}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="btn btn-primary"
+                                style={{ display: 'flex', alignItems: 'center', gap: '8px', justifyContent: 'center' }}
+                            >
+                                View Source Code <FaGithub />
+                            </a>
+                            {selectedProject.live !== "#" && (
                                 <a
-                                    href={selectedProject.github}
+                                    href={selectedProject.live}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="btn btn-primary"
+                                    className="btn btn-outline"
                                     style={{ display: 'flex', alignItems: 'center', gap: '8px', justifyContent: 'center' }}
                                 >
-                                    View Source Code <FaGithub />
+                                    Live Preview <FaExternalLinkAlt />
                                 </a>
-                                {selectedProject.live !== "#" && (
-                                    <a
-                                        href={selectedProject.live}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="btn btn-outline"
-                                        style={{ display: 'flex', alignItems: 'center', gap: '8px', justifyContent: 'center' }}
-                                    >
-                                        Live Preview <FaExternalLinkAlt />
-                                    </a>
-                                )}
-                                <button className="btn btn-outline" onClick={() => setSelectedProject(null)}>
-                                    Close Details
-                                </button>
-                            </div>
+                            )}
+                            <button className="btn btn-outline" onClick={() => setSelectedProject(null)}>
+                                Close Details
+                            </button>
                         </div>
                     </div>
                 </div>
-            )}
-        </section>
-    );
+            </div>
+        )}
+    </section>
+);
 };
 
 export default Projects;

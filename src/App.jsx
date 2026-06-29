@@ -8,6 +8,7 @@ import Projects from './sections/Projects';
 import Contact from './sections/Contact';
 import Education from './sections/Education';
 import CGPA from './sections/CGPA';
+import Experience from './sections/Experience';
 import Certificates from './sections/Certificates';
 import CV from './sections/CV';
 
@@ -34,6 +35,7 @@ function App() {
       <About />
       <Education />
       <CGPA />
+      <Experience />
       <Projects />
       <Certificates />
       <CV />
